@@ -1,0 +1,36 @@
+import random
+import string
+
+def generate_password(length=12):
+    lowercase_letters = string.ascii_lowercase
+    uppercase_letters = string.ascii_uppercase
+    digits = string.digits
+    special_characters = string.punctuation
+
+    # Ensure at least one character from each category
+    password = random.choice(lowercase_letters) + random.choice(uppercase_letters) + random.choice(digits) + random.choice(special_characters)
+
+    # Fill the rest of the password length with random characters
+    password += ''.join(random.choice(lowercase_letters + uppercase_letters + digits + special_characters) for _ in range(length - 4))
+
+    # Shuffle the password to randomize character positions
+    password_list = list(password)
+    random.shuffle(password_list)
+    password = ''.join(password_list)
+
+    return password
+
+def main():
+    try:
+        password_length = int(input("Enter the desired password length: "))
+        num_passwords = int(input("Enter the number of passwords to generate: "))
+
+        for _ in range(num_passwords):
+            password = generate_password(password_length)
+            print("Generated Password:", password)
+
+    except ValueError:
+        print("Please enter valid numerical values.")
+
+if __name__ == "__main__":
+    main()
